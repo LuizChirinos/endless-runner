@@ -2,48 +2,53 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputMovement : MonoBehaviour
+namespace Triplano.Inputs
 {
-    [SerializeField] private InputActionAsset inputActionAsset;
-    private InputActionMap playerMap;
-    private InputAction moveAction;
-    private InputAction jumpAction;
-    private bool jump;
-    private Vector3 movement = Vector3.zero;
-    public bool Jump { get => jump; }
-    public Vector3 Movement { get => movement; }
-
-    private void Start()
+    public class InputMovement : MonoBehaviour
     {
-        playerMap = inputActionAsset.FindActionMap("Player");
+        [SerializeField] private InputActionAsset inputActionAsset;
+        [SerializeField] private RuntimePlatform runtimePlatform;
+        private InputActionMap playerMap;
+        private InputAction moveAction;
+        private InputAction jumpAction;
+        private bool jump;
+        private Vector3 movement = Vector3.zero;
+        public bool Jump { get => jump; }
+        public Vector3 Movement { get => movement; }
 
-        moveAction = playerMap.FindAction("Movement");
-        jumpAction = playerMap.FindAction("Jump");
+        private void Start()
+        {
+            playerMap = inputActionAsset.FindActionMap("Player");
 
-        inputActionAsset.Enable();
+            moveAction = playerMap.FindAction("Movement");
+            jumpAction = playerMap.FindAction("Jump");
 
-        moveAction.performed += OnMove;
-        moveAction.canceled += OnMove;
-        jumpAction.performed += OnJump;
-        jumpAction.canceled += OnJump;
+            inputActionAsset.Enable();
+
+            moveAction.performed += OnMove;
+            moveAction.canceled += OnMove;
+            jumpAction.performed += OnJump;
+            jumpAction.canceled += OnJump;
+        }
+
+        private void OnDestroy()
+        {
+            moveAction.performed -= OnMove;
+            moveAction.canceled -= OnMove;
+            jumpAction.performed -= OnJump;
+            jumpAction.canceled -= OnJump;
+
+            inputActionAsset.Disable();
+        }
+
+        private void OnJump(InputAction.CallbackContext obj)
+        {
+            jump = obj.ReadValueAsButton();
+        }
+        private void OnMove(InputAction.CallbackContext obj)
+        {
+            movement = obj.ReadValue<Vector2>();
+        }
     }
 
-    private void OnDestroy()
-    {
-        moveAction.performed -= OnMove;
-        moveAction.canceled -= OnMove;
-        jumpAction.performed -= OnJump;
-        jumpAction.canceled -= OnJump;
-
-        inputActionAsset.Disable();
-    }
-
-    private void OnJump(InputAction.CallbackContext obj)
-    {
-        jump = obj.ReadValueAsButton();
-    }
-    private void OnMove(InputAction.CallbackContext obj)
-    {
-        movement = obj.ReadValue<Vector2>();
-    }
 }

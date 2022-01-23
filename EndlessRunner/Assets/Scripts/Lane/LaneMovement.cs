@@ -12,9 +12,7 @@ namespace Triplano.Lanes
         public ChangeLaneHandler OnChangingLane;
         public ChangeLaneHandler OnTriedChangingLane;
 
-        [SerializeField] private LaneData laneData;
-        [SerializeField] private AnimationCurve movementCurve;
-        [SerializeField] private float durationOfMovement;
+        [SerializeField] private LaneMovementData laneMovementData;
         [SerializeField] private int indexOfCurrentLane;
 
         private InputMovement inputMovement;
@@ -67,7 +65,7 @@ namespace Triplano.Lanes
             if (direction.x == 0f || isChangingLanes)
                 return;
 
-            StartCoroutine(ChangeLaneCoroutine(direction, durationOfMovement));
+            StartCoroutine(ChangeLaneCoroutine(direction, laneMovementData.DurationOfMovement));
         }
 
         private IEnumerator ChangeLaneCoroutine(Vector3 direction, float duration)
@@ -91,13 +89,13 @@ namespace Triplano.Lanes
             float intialTime = Time.time;
             float elapsedTime = Time.time - intialTime;
 
-            Vector3 targetLane = transform.localPosition + Vector3.right * Mathf.Sign(direction.x) * laneData.Spacing;
+            Vector3 targetLane = transform.localPosition + Vector3.right * Mathf.Sign(direction.x) * laneMovementData.Spacing;
 
 
             while (elapsedTime / duration < 0.8f)
             {
                 elapsedTime = Time.time - intialTime;
-                transform.localPosition = Vector3.Lerp(transform.localPosition, targetLane, movementCurve.Evaluate(elapsedTime / duration));
+                transform.localPosition = Vector3.Lerp(transform.localPosition, targetLane, laneMovementData.MovementCurve.Evaluate(elapsedTime / duration));
                 CurrentSpeed = targetLane - transform.localPosition;
                 yield return null;
             }
@@ -109,12 +107,12 @@ namespace Triplano.Lanes
 
         private bool IsMovingOnLaneBoundary(Vector3 direction)
         {
-            if (Mathf.Sign(direction.x) > 0 && laneData.ReturnLaneBoundary(indexOfCurrentLane) > 0)
+            if (Mathf.Sign(direction.x) > 0 && laneMovementData.ReturnLaneBoundary(indexOfCurrentLane) > 0)
             {
                 OnTriedChangingLane?.Invoke(Vector3.right);
                 return true;
             }
-            else if (Mathf.Sign(direction.x) < 0 && laneData.ReturnLaneBoundary(indexOfCurrentLane) < 0)
+            else if (Mathf.Sign(direction.x) < 0 && laneMovementData.ReturnLaneBoundary(indexOfCurrentLane) < 0)
             {
                 OnTriedChangingLane?.Invoke(Vector3.left);
                 return true;

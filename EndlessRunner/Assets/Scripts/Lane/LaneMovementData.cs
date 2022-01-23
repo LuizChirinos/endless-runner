@@ -3,14 +3,19 @@ using UnityEngine;
 
 namespace Triplano.Lanes
 {
-    [CreateAssetMenu(fileName = nameof(LaneData), menuName = "Triplano/Lanes")]
-    public class LaneData : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(LaneMovementData), menuName = "Triplano/Lanes")]
+    public class LaneMovementData : ScriptableObject
     {
+        [SerializeField] private AnimationCurve movementCurve;
+        [SerializeField] private float durationOfMovement;
+
         [SerializeField] private float spacing;
         [SerializeField] private int numberOfLanes;
 
         public float Spacing { get => spacing; }
         public int NumberOfLanes { get => numberOfLanes; }
+        public AnimationCurve MovementCurve { get => movementCurve; }
+        public float DurationOfMovement { get => durationOfMovement; }
 
         public int ReturnLaneBoundary(int indexOfCurrentLane)
         {

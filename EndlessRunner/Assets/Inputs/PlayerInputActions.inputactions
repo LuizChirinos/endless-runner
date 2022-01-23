@@ -24,8 +24,8 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
-                    "id": "34a61e2e-751d-4381-a451-75940284ddd3",
+                    "name": "2D Vector",
+                    "id": "23ffab5b-458d-4728-8a9a-06b03580e1d3",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -36,88 +36,77 @@
                 },
                 {
                     "name": "up",
-                    "id": "e4c803bf-eba3-4261-931e-bdd88dbb6dd9",
+                    "id": "8b37f52b-f515-4847-becc-23d40452f426",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PC",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "0bce398d-3c3b-4906-90fc-eaf7ee30c246",
+                    "id": "035ab8ec-29f6-462d-b0b6-9c05f4e8ae32",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PC",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "ef561e58-dd88-4dd3-9c06-c01dc2516fcc",
+                    "id": "f2090aff-52f6-49e2-aada-f1c8af152def",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PC",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "6fd78339-dfc9-4061-8564-3b2fe22e6fa1",
+                    "id": "19dff95b-c1e0-485d-a08b-fff2b20c398e",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "6c8ec63e-08f1-4134-bea3-98b33ea0440c",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Modifier",
-                    "id": "c44b6700-9538-4f3d-acd7-aeb80823f47e",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button",
-                    "id": "7eb2910b-6320-40c0-ba83-de750485a4a9",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": "PC",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "183784c5-50a8-447e-bf4f-432737face2c",
+                    "id": "5f487adf-12a3-43ae-b84b-d581e96de289",
+                    "path": "<Touchscreen>/touch1/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "371f6f15-bd20-4e77-a1ff-e5b53842203b",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PC",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2912d94-1f38-400d-85dd-dd844d1f5ab1",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -125,5 +114,28 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

@@ -148,6 +148,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   durationOfMovement: 0.5
+  indexOfCurrentLane: 1
 --- !u!1 &8332981576123878626
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Triplano.Lanes
@@ -10,5 +11,15 @@ namespace Triplano.Lanes
 
         public float Spacing { get => spacing; }
         public int NumberOfLanes { get => numberOfLanes; }
+
+        public int ReturnLaneBoundary(int indexOfCurrentLane)
+        {
+            if (indexOfCurrentLane >= numberOfLanes - 1)
+                return 1;
+            else if (indexOfCurrentLane <= 0)
+                return -1;
+
+            return 0;
+        }
     }
 }

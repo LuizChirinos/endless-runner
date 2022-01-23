@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6aac4a778bf08fe49adec9acc5c46251, type: 3}
-  m_Name: CurrencyOnLevel
+  m_Name: Currency Game
   m_EditorClassIdentifier: 
   initialValue: 0

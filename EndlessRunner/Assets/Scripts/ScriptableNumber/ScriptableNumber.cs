@@ -28,6 +28,7 @@ namespace Triplano
             OnUpdated?.Invoke(initialValue);
             PlayerPrefs.DeleteKey(saveKey);
         }
+        public void Set(int value) => SavedValue = value;
         public void Add(int amount) => SavedValue += amount;
         public void Remove(int amount) => SavedValue -= amount;
 

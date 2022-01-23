@@ -17,8 +17,10 @@ namespace Triplano.Levels
 
         public OnChangedLevelState OnStarted;
         public OnChangedLevelState OnPaused;
+        public OnChangedLevelState OnWon;
+        public OnChangedLevelState OnLost;
 
-        public enum LevelState { STARTED, PAUSED }
+        public enum LevelState { STARTED, PAUSED, WON, LOSE }
         private LevelState levelStatus;
 
         public bool IsPaused { get => levelStatus == LevelState.PAUSED; }
@@ -29,8 +31,8 @@ namespace Triplano.Levels
         /// Changes level status to STARTED state
         /// </summary>
         public void StartLevel()
-
         {
+            OnStarted?.Invoke();
             levelStatus = LevelState.STARTED;
         }
 
@@ -39,7 +41,18 @@ namespace Triplano.Levels
         /// </summary>
         public void PauseLevel()
         {
+            OnPaused?.Invoke();
             levelStatus = LevelState.PAUSED;
+        }
+        public void WinLevel()
+        {
+            OnWon?.Invoke();
+            levelStatus = LevelState.WON;
+        }
+        public void LoseLevel()
+        {
+            OnLost?.Invoke();
+            levelStatus = LevelState.LOSE;
         }
 
         /// <summary>

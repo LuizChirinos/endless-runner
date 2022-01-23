@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelFlow: {fileID: 11400000, guid: 3a4be3168299d314ab59535e7cba58c6, type: 2}
+  currencyGame: {fileID: 11400000, guid: 234a7de53aaf98d43b43723002a7f82f, type: 2}
   currencyLevel: {fileID: 11400000, guid: 2f89debf5e708794cbe1aee75c2ac191, type: 2}
 --- !u!1001 &3574112638105567640
 PrefabInstance:

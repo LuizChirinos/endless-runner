@@ -10,12 +10,43 @@ public class LevelFlowEditor : Editor
     {
         LevelFlow levelFlow = target as LevelFlow;
 
+        DrawLevelStateSection(levelFlow);
+
+        DrawChangeLevelSection(levelFlow);
+    }
+
+    private void DrawLevelStateSection(LevelFlow levelFlow)
+    {
         GUILayout.BeginVertical("box");
+
+        EditorGUILayout.LabelField($"LEVEL STATE SECTION");
         EditorGUILayout.LabelField($"Current Level = {SceneManager.GetActiveScene().name}");
         EditorGUILayout.LabelField($"Build Index = {SceneManager.GetActiveScene().buildIndex}");
         EditorGUILayout.LabelField($"Level State = {levelFlow.LevelStatus}");
-        GUILayout.EndVertical();
 
+        GUILayout.BeginHorizontal("box");
+        if (GUILayout.Button("Win Level"))
+        {
+            levelFlow.WinLevel();
+        }
+        if (GUILayout.Button("Lose Level"))
+        {
+            levelFlow.LoseLevel();
+        }
+        GUILayout.EndHorizontal();
+        if (GUILayout.Button("StartLevel"))
+        {
+            levelFlow.StartLevel();
+        }
+
+        GUILayout.EndVertical();
+    }
+
+    private void DrawChangeLevelSection(LevelFlow levelFlow)
+    {
+        GUILayout.BeginVertical("box");
+
+        EditorGUILayout.LabelField($"CHANGE LEVEL SECTION");
         GUILayout.BeginHorizontal("box");
         if (GUILayout.Button("Previous Level"))
         {
@@ -31,5 +62,8 @@ public class LevelFlowEditor : Editor
         {
             levelFlow.ResetLevel();
         }
+        GUILayout.EndVertical();
     }
+
+
 }

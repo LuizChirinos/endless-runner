@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 8379724009059997913}
   - component: {fileID: 8112548261331567820}
   - component: {fileID: 2891935084116904215}
+  - component: {fileID: 7770487768317856205}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -216,6 +217,26 @@ MonoBehaviour:
   movementLock: 0
   playerCollider: {fileID: 7674085891880092837}
   sliderCollider: {fileID: 8112548261331567820}
+--- !u!114 &7770487768317856205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355071008680196714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48bfd4ebc48caf499aac80550bcc377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStartJumpingUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopJumpingUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  movementLock: 0
+  laneMovementData: {fileID: 11400000, guid: 71d0119af2b70724391b712b2ad50e62, type: 2}
 --- !u!1 &8332981576123878626
 GameObject:
   m_ObjectHideFlags: 0

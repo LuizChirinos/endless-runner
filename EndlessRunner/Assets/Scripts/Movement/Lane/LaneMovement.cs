@@ -91,15 +91,16 @@ namespace Triplano.Lanes
 
             Vector3 targetLane = transform.localPosition + Vector3.right * Mathf.Sign(direction.x) * laneMovementData.Spacing;
 
-
             while (elapsedTime / duration < 0.8f)
             {
                 elapsedTime = Time.time - intialTime;
+                targetLane.y = transform.localPosition.y;
                 transform.localPosition = Vector3.Lerp(transform.localPosition, targetLane, laneMovementData.MovementCurve.Evaluate(elapsedTime / duration));
                 CurrentSpeed = targetLane - transform.localPosition;
                 yield return null;
             }
-
+            
+            targetLane.y = transform.localPosition.y;
             transform.localPosition = targetLane;
 
             isChangingLanes = false;

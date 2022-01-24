@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9982ed012258e2942964d511228b7787, type: 3}
-  m_Name: LaneMovementData
+  m_Name: Player LaneMovementData
   m_EditorClassIdentifier: 
   movementCurve:
     serializedVersion: 2
@@ -40,3 +40,38 @@ MonoBehaviour:
   spacing: 2
   numberOfLanes: 3
   durationOfSlide: 0.8
+  durationOfJump: 0.5
+  jumpHeight: 5
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 3.9781563
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.108333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0.30524048
+      outSlope: -0.34965482
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.5833334
+      outWeight: 0.725
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.5873034
+      outSlope: 1
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.08333337
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

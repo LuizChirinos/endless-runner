@@ -71,7 +71,6 @@ namespace Triplano.Movement
 
         private IEnumerator SlideCoroutine(float duration)
         {
-            Debug.Log("Slide");
             isSliding = true;
 
             float intialTime = Time.time;
@@ -81,6 +80,7 @@ namespace Triplano.Movement
 
             OnStartSliding?.Invoke();
             OnStartSlidingUnityEvent?.Invoke();
+
 
             while (elapsedTime / duration < 0.8f)
             {

@@ -11,11 +11,13 @@ namespace Triplano.Lanes
 
         [SerializeField] private float spacing;
         [SerializeField] private int numberOfLanes;
+        [SerializeField] private float durationOfSlide;
 
         public float Spacing { get => spacing; }
         public int NumberOfLanes { get => numberOfLanes; }
         public AnimationCurve MovementCurve { get => movementCurve; }
         public float DurationOfMovement { get => durationOfMovement; }
+        public float DurationOfSlide { get => durationOfSlide; }
 
         public int ReturnLaneBoundary(int indexOfCurrentLane)
         {

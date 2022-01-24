@@ -39,3 +39,4 @@ MonoBehaviour:
   durationOfMovement: 0.5
   spacing: 2
   numberOfLanes: 3
+  durationOfSlide: 0.8

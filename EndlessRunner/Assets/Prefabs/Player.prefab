@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 5982712790628040536}
   - component: {fileID: 2239780643001229737}
   - component: {fileID: 8379724009059997913}
+  - component: {fileID: 8112548261331567820}
+  - component: {fileID: 2891935084116904215}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -155,6 +157,65 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cc02afc305527140a3f47cc5fe50a36, type: 2}
   commands: []
   commandParent: {fileID: 355071008680196715}
+--- !u!65 &8112548261331567820
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355071008680196714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.52, y: 0.48212242, z: 1}
+  m_Center: {x: 0, y: -0.6189388, z: 0}
+--- !u!114 &2891935084116904215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355071008680196714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d87abb1ed99246488d69454672a6f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStartSlidingUnityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8332981576123878626}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStopSlidingUnityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8332981576123878626}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  laneMovementData: {fileID: 11400000, guid: 71d0119af2b70724391b712b2ad50e62, type: 2}
+  movementLock: 0
+  playerCollider: {fileID: 7674085891880092837}
+  sliderCollider: {fileID: 8112548261331567820}
 --- !u!1 &8332981576123878626
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,7 +41,7 @@ MonoBehaviour:
   numberOfLanes: 3
   durationOfSlide: 0.8
   durationOfJump: 0.5
-  jumpHeight: 5
+  jumpHeight: 3.5
   jumpCurve:
     serializedVersion: 2
     m_Curve:

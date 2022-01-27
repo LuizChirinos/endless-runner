@@ -84,6 +84,7 @@ namespace Damages
             return true;
         }
 
+        [ContextMenu("Kill")]
         public void Kill()
         {
             Damage(MaxLife);

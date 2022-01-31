@@ -9,20 +9,21 @@ namespace Triplano
     [RequireComponent(typeof(LaneMovement), typeof(Health))]
     public class PlayerVisual : MonoBehaviour
     {
+        [SerializeField] private Transform visual;
         private JumpMovement jumpMovement;
         private RailMovement railMovement;
         private SlideMovement slideMovement;
         private Health health;
-
-        [SerializeField] private Animator anim;
+        private Animator anim;
 
         private int runningHash = Animator.StringToHash("isRunning");
-        private int dieHash = Animator.StringToHash("isDead");
-        private int jumpingHash = Animator.StringToHash("isTexting");
-        private int slideHash = Animator.StringToHash("is");
+        private int dieHash = Animator.StringToHash("Die");
+        private int jumpingHash = Animator.StringToHash("isJumping");
+        private int slideHash = Animator.StringToHash("isSliding");
 
         private void Start()
         {
+            anim = visual.GetComponentInChildren<Animator>();
             railMovement = GetComponentInParent<RailMovement>();
             health = GetComponent<Health>();
             jumpMovement = GetComponent<JumpMovement>();
@@ -39,12 +40,16 @@ namespace Triplano
 
         private void StopSlide()
         {
+            anim.SetBool(slideHash, false);
+
             StartMoving();
             StopJumping();
         }
 
         private void StartSlide()
         {
+            anim.SetBool(slideHash, true);
+
             StopJumping();
             StopMoving();
         }

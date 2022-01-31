@@ -8,6 +8,10 @@ namespace Triplano.Lanes
     [RequireComponent(typeof(InputMovement))]
     public class LaneMovement : MonoBehaviour, IMove
     {
+        public delegate void MovementEventHandler();
+        public MovementEventHandler OnStartMoving;
+        public MovementEventHandler OnStopMoving;
+
         public delegate void ChangeLaneHandler(Vector3 direction);
         public ChangeLaneHandler OnChangingLane;
         public ChangeLaneHandler OnTriedChangingLane;
@@ -23,12 +27,26 @@ namespace Triplano.Lanes
         public bool IsChangingLanes { get => isChangingLanes; }
         public int MovementLock { get => movementLock; }
         public bool CanMove { get => MovementLock <= 0; }
-        public Vector3 CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
+        public Vector3 CurrentSpeed
+        {
+            get => currentSpeed;
+            set
+            {
+                if (currentSpeed.magnitude == 0f && value.magnitude != 0f)
+                    OnStartMoving?.Invoke();
+
+                if (value.magnitude == 0f)
+                    OnStopMoving?.Invoke();
+
+                currentSpeed = value;
+            }
+        }
         public int CurrentLane { get => indexOfCurrentLane; }
 
         private void Start()
         {
             inputMovement = GetComponent<InputMovement>();
+            CurrentSpeed = Vector3.zero;
         }
 
         private void Update()

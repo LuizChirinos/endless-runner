@@ -49,6 +49,9 @@ namespace Triplano.Inputs
         {
             movement = obj.ReadValue<Vector2>();
         }
+
+        public void Disable() => inputActionAsset.Disable();
+        public void Enable() => inputActionAsset.Enable();
     }
 
 }

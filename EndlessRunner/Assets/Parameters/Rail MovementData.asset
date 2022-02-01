@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ddc6b71cba96344be941a55d10fd35, type: 3}
   m_Name: Rail MovementData
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Damages
 {
@@ -11,7 +12,8 @@ namespace Damages
 
         public static event Action<Health> OnAnyDeath;
         public OnLifeEvent OnDeath;
-        public OnLifeEvent OnHit;
+        public UnityEvent OnDamagedUnityEvent;
+        public UnityEvent OnDeathUnityEvent;
 
         public OnLifeChanged OnLifeSet;
         public OnLifeChanged OnDamageTaken;
@@ -22,8 +24,6 @@ namespace Damages
         [SerializeField] protected bool deactivateOnDeath = false;
         [Space(10)]
         [Header("Die Fields")]
-        [SerializeField] protected GameObject hitEffect;
-        [SerializeField] protected GameObject deathEffect;
         [SerializeField] protected float dieLifetime = 1f;
 
         public float MaxLife { get => maxLife; }
@@ -40,9 +40,6 @@ namespace Damages
         protected IEnumerator DieCoroutine()
         {
             float elapsedTime = 0;
-
-            if (deathEffect)
-                Instantiate(deathEffect, transform.position, Quaternion.identity);
 
             while (elapsedTime < dieLifetime)
             {
@@ -63,6 +60,8 @@ namespace Damages
             if (damageAmount <= 0)
                 return false;
 
+            OnDamagedUnityEvent?.Invoke();
+
             float damageTaken = Mathf.Clamp(damageAmount, 0f, currentLife);
 
             currentLife -= damageAmount;
@@ -71,14 +70,12 @@ namespace Damages
             OnLifeSet?.Invoke(currentLife);
             OnDamageTaken?.Invoke(damageTaken);
 
-            if (hitEffect)
-                Instantiate(hitEffect, transform.position, Quaternion.identity);
-
             if (IsDead)
             {
                 StartCoroutine(DieCoroutine());
                 OnAnyDeath?.Invoke(this);
                 OnDeath?.Invoke();
+                OnDeathUnityEvent?.Invoke();
             }
 
             return true;

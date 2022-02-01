@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94ddc6b71cba96344be941a55d10fd35, type: 3}
-  m_Name: Rail MovementData
+  m_Script: {fileID: 11500000, guid: 44d58e3c78f98cb4094753852d40d3a8, type: 3}
+  m_Name: Obstacle Tag
   m_EditorClassIdentifier: 
-  speed: 15

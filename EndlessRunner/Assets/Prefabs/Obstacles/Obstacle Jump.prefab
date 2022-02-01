@@ -9,15 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1649982206160402933, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
       propertyPath: m_Height
-      value: 1.4050596
+      value: 1.9819895
       objectReference: {fileID: 0}
     - target: {fileID: 1649982206160402933, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
       propertyPath: m_Radius
-      value: 0.39
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 1649982206160402933, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
       propertyPath: m_Center.y
-      value: 0.5725298
+      value: 0.86099476
       objectReference: {fileID: 0}
     - target: {fileID: 5099929420353181456, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
       propertyPath: m_RootOrder
@@ -63,9 +63,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5245082703997808685, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245082703997808685, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245082703997808685, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5305448311393035710, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}
       propertyPath: m_Name
-      value: Obstacle 2
+      value: Obstacle Jump
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0a1efc031f8ef4d8d714fdb53bb4f1, type: 3}

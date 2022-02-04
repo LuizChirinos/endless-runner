@@ -2,47 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Triplano.Lanes;
+using System;
 
 namespace Triplano
 {
     public class ModulesCreator : MonoBehaviour
     {
         [SerializeField] private List<Module> modules;
-        [SerializeField] private GameEvent moduleGameEvent;
         [SerializeField] private Module modulePrefab;
+        [SerializeField] private Transform modulesParent;
+        [SerializeField] private GameEvent spawnModuleGameEvent;
+        [SerializeField] private GameEvent destroyModuleGameEvent;
+        [SerializeField] private CameraOriginData cameraOriginData;
         [SerializeField] private int maxNumberOfModules = 2;
+
+        private RailMovement railMovement;
 
         public int NumberOfActiveModules { get => modules.Count; }
         public Vector3 LastModulesPosition { get => transform.TransformPoint(LastModule.EndPosition); }
-        public  Module FirstModule { get => modules[0]; }
-        public  Module LastModule { get => modules[NumberOfActiveModules-1]; }
+        public Module FirstModule { get => modules[0]; }
+        public Module LastModule { get => modules[NumberOfActiveModules - 1]; }
 
         private void Start()
         {
+            railMovement = GetComponentInChildren<RailMovement>();
             modules = GetComponentsInChildren<Module>().ToList();
-            moduleGameEvent.SubscribeToEvent(CreateModule);
+
+            foreach (Module item in modules)
+            {
+                item.SetDestroyTrigger(false);
+            }
+
+            spawnModuleGameEvent.SubscribeToEvent(CreateModule);
+            destroyModuleGameEvent.SubscribeToEvent(DestroyModule);
         }
         private void OnDestroy()
         {
-            moduleGameEvent.UnsubscribeToEvent(CreateModule);
+            spawnModuleGameEvent.UnsubscribeToEvent(CreateModule);
+            destroyModuleGameEvent.UnsubscribeToEvent(DestroyModule);
         }
 
-        public void CreateModule()
+        private void CreateModule()
         {
-            Module spawnedModule = Instantiate(modulePrefab, LastModulesPosition, Quaternion.identity, transform);
+            Module spawnedModule = Instantiate(modulePrefab, LastModulesPosition, Quaternion.identity, modulesParent);
             AddModule(spawnedModule);
-
-            if (NumberOfActiveModules > maxNumberOfModules)
-            {
-                Module moduleinstance = FirstModule;
-
-                RemoveModule(moduleinstance);
-                Destroy(moduleinstance.gameObject);
-            }
+        }
+        private void DestroyModule()
+        {
+            Module removedModule = RemoveModule(FirstModule);
+            Destroy(removedModule.gameObject);
         }
 
         private Module AddModule(Module module)
         {
+            //spawnedModules++;
             modules.Add(module);
             return module;
         }

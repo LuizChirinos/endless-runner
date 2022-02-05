@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 namespace Triplano.Movement
 {
-    [RequireComponent(typeof(InputMovement))]
     public class JumpMovement : MonoBehaviour, IMove
     {
         public delegate void JumpEventHandler();

@@ -8,7 +8,6 @@ using UnityEngine.Events;
 
 namespace Triplano.Movement
 {
-    [RequireComponent(typeof(InputMovement))]
     public class SlideMovement : MonoBehaviour, IMove
     {
         public delegate void SlideEventHandler();

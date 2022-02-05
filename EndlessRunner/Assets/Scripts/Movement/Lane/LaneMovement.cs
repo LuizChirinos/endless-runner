@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triplano.Lanes
 {
-    [RequireComponent(typeof(InputMovement))]
     public class LaneMovement : MonoBehaviour, IMove
     {
         public delegate void MovementEventHandler();

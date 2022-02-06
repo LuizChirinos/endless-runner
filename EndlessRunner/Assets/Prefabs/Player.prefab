@@ -48,12 +48,11 @@ GameObject:
   - component: {fileID: 5982712790628040536}
   - component: {fileID: 2239780643001229737}
   - component: {fileID: 8379724009059997913}
-  - component: {fileID: 2891935084116904215}
-  - component: {fileID: 7770487768317856205}
   - component: {fileID: 3862014207332109870}
   - component: {fileID: 4738597871677112248}
   - component: {fileID: 2879952361764109417}
   - component: {fileID: 3768201077203637234}
+  - component: {fileID: 1460207851352503332}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -162,48 +161,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cc02afc305527140a3f47cc5fe50a36, type: 2}
   commands: []
   commandParent: {fileID: 355071008680196715}
---- !u!114 &2891935084116904215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355071008680196714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d87abb1ed99246488d69454672a6f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStartSlidingUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStopSlidingUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  laneMovementData: {fileID: 11400000, guid: 71d0119af2b70724391b712b2ad50e62, type: 2}
-  movementLock: 0
-  playerCollider: {fileID: 7674085891880092837}
-  sliderCollider: {fileID: 8112548261331567820}
---- !u!114 &7770487768317856205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355071008680196714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b48bfd4ebc48caf499aac80550bcc377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStartJumpingUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStopJumpingUnityEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  movementLock: 0
-  laneMovementData: {fileID: 11400000, guid: 71d0119af2b70724391b712b2ad50e62, type: 2}
 --- !u!114 &3862014207332109870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +233,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c379e3846cbe12345baefe9d30527abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputStrategy: {fileID: 11400000, guid: 072a7d52a1288074ea40159499b01de4, type: 2}
+  inputStrategy: {fileID: 11400000, guid: 9c457de56c7031a498f1b70cadd88818, type: 2}
   Movement: {x: 0, y: 0, z: 0}
+--- !u!114 &1460207851352503332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355071008680196714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4450d454f3044024a81740382648a0a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 17
+  floorMask:
+    serializedVersion: 2
+    m_Bits: 64
+  toleranceToFloor: 3
+  rayDistance: 10
+  gravityMofidier: -2
+  maxJumpSpeed: 50
+  maxFallingSpeed: 10
+  playerHeight: 2.5
+  offset: {x: 0, y: -0.07, z: 0}
+  radius: 0.47
+  jump: 0
+  jumpTimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.2924197
+      outSlope: 1.2924197
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.6091393
+    - serializedVersion: 3
+      time: 0.3
+      value: 1
+      inSlope: 6.347537
+      outSlope: 6.347537
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.14729956
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8332981576123878626
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triplano.Lanes
 {
-    [RequireComponent(typeof(InputMovement))]
     public class LaneMovement : MonoBehaviour, IMove
     {
         public delegate void MovementEventHandler();
@@ -43,20 +42,18 @@ namespace Triplano.Lanes
         }
         public int CurrentLane { get => indexOfCurrentLane; }
 
-        private void Start()
+        private void OnEnable()
         {
             inputMovement = GetComponent<InputMovement>();
             CurrentSpeed = Vector3.zero;
+
+            inputMovement.OnMove += OnMove;
         }
 
-        private void Update()
+        private void OnDisable()
         {
-            if (!CanMove)
-                return;
-
-            Move(inputMovement.Movement);
+            inputMovement.OnMove -= OnMove;
         }
-
 
         public void LockMovement()
         {
@@ -78,8 +75,16 @@ namespace Triplano.Lanes
             Move(Vector3.right);
         }
 
+        private void OnMove(Vector2 delta)
+        {
+            Move(delta);
+        }
+
         public void Move(Vector3 direction)
         {
+            if (!CanMove)
+                return;
+
             if (direction.x == 0f || isChangingLanes)
                 return;
 

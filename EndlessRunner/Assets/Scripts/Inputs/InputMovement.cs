@@ -6,52 +6,41 @@ namespace Triplano.Inputs
 {
     public class InputMovement : MonoBehaviour
     {
-        [SerializeField] private InputActionAsset inputActionAsset;
-        [SerializeField] private RuntimePlatform runtimePlatform;
-        private InputActionMap playerMap;
-        private InputAction moveAction;
-        private InputAction jumpAction;
-        private bool jump;
-        private Vector3 movement = Vector3.zero;
-        public bool Jump { get => jump; }
-        public Vector3 Movement { get => movement; }
+        public Action<Vector2> OnMove;
 
-        private void Start()
+        [SerializeField] protected InputStrategy inputStrategy;
+
+        public Vector3 Movement = Vector3.zero;
+
+        protected virtual void OnEnable()
         {
-            playerMap = inputActionAsset.FindActionMap("Player");
-
-            moveAction = playerMap.FindAction("Movement");
-            jumpAction = playerMap.FindAction("Jump");
-
-            inputActionAsset.Enable();
-
-            moveAction.performed += OnMove;
-            moveAction.canceled += OnMove;
-            jumpAction.performed += OnJump;
-            jumpAction.canceled += OnJump;
+            Initialize();
         }
 
-        private void OnDestroy()
+        private void UnsubscribeToBindings()
         {
-            moveAction.performed -= OnMove;
-            moveAction.canceled -= OnMove;
-            jumpAction.performed -= OnJump;
-            jumpAction.canceled -= OnJump;
-
-            inputActionAsset.Disable();
+            inputStrategy.UnsubscribeToBindings(this);
         }
 
-        private void OnJump(InputAction.CallbackContext obj)
+        private void Initialize()
         {
-            jump = obj.ReadValueAsButton();
-        }
-        private void OnMove(InputAction.CallbackContext obj)
-        {
-            movement = obj.ReadValue<Vector2>();
+            inputStrategy.SubscribeToBindings(this);
+            Enable();
         }
 
-        public void Disable() => inputActionAsset.Disable();
-        public void Enable() => inputActionAsset.Enable();
+        protected virtual void OnDisable()
+        {
+            Disable();
+            UnsubscribeToBindings();
+        }
+
+        public void Enable() => inputStrategy.EnableInput();
+        public void Disable() => inputStrategy.DisableInput();
+
+        public void Move(Vector2 delta)
+        {
+            OnMove?.Invoke(delta);
+        }
     }
 
 }

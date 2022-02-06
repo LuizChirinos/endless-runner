@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Triplano.Inputs;
 using Triplano.Lanes;
@@ -6,7 +7,6 @@ using UnityEngine.Events;
 
 namespace Triplano.Movement
 {
-    [RequireComponent(typeof(InputMovement))]
     public class JumpMovement : MonoBehaviour, IMove
     {
         public delegate void JumpEventHandler();
@@ -30,23 +30,28 @@ namespace Triplano.Movement
 
         [SerializeField] private LaneMovementData laneMovementData;
 
-        private void Start()
+        private void OnEnable()
         {
             isJumping = false;
             inputMovement = GetComponent<InputMovement>();
+
+            inputMovement.OnMove += OnMove;
         }
 
-        private void Update()
+        private void OnMove(Vector2 delta)
+        {
+            Move(delta);
+        }
+
+        public void Move(Vector3 direction)
         {
             if (!CanMove)
                 return;
 
-            if (inputMovement.Movement.y > 0f)
-                Move(Vector3.up);
-        }
-        public void Move(Vector3 direction)
-        {
-            if (direction != Vector3.up || isJumping)
+            if (direction.y <= 0f)
+                return;
+
+            if (isJumping)
                 return;
 
             StartCoroutine(JumpCoroutine(laneMovementData.DurationOfJump));

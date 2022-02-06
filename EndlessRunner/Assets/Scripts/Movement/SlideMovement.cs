@@ -32,27 +32,33 @@ namespace Triplano.Movement
         public Vector3 CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
         public bool IsSliding { get => isSliding; }
 
-        private void Start()
+        private void OnEnable()
         {
             isSliding = false;
             inputMovemet = GetComponent<InputMovement>();
             ToggleSliderCollider();
+            inputMovemet.OnMove += OnMove;
         }
 
-        private void Update()
+        private void OnDisable()
         {
-            if (!CanMove)
-                return;
+            inputMovemet.OnMove -= OnMove;
+        }
 
-            if (inputMovemet.Movement.y < 0f)
-            {
-                Move(Vector3.down);
-            }
+        private void OnMove(Vector2 delta)
+        {
+            Move(delta);
         }
 
         public void Move(Vector3 direction)
         {
-            if (direction != Vector3.down || isSliding)
+            if (!CanMove)
+                return;
+
+            if (direction.y >= 0f)
+                return;
+
+            if (isSliding)
                 return;
 
             StartCoroutine(SlideCoroutine(laneMovementData.DurationOfSlide));

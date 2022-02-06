@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "b85a02d1-e692-4af0-b23b-70329f3751f8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
@@ -27,7 +27,7 @@
                     "id": "4728e8a9-2c4a-48cb-8edb-8a53eff0e672",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": ""
                 },
                 {
                     "name": "TouchPosition",
@@ -35,7 +35,7 @@
                     "id": "25ed02ab-5668-49e7-a040-e0899db0de59",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -109,7 +109,7 @@
                     "name": "",
                     "id": "0f30bbab-6ba7-4aea-ad03-ada511813966",
                     "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "TouchContact",
@@ -137,6 +137,17 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
                     "isOptional": false,
                     "isOR": false
                 }

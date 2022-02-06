@@ -6,6 +6,8 @@ namespace Triplano.Inputs
 {
     public class InputMovement : MonoBehaviour
     {
+        public Action<Vector2> OnMove;
+
         [SerializeField] protected InputStrategy inputStrategy;
 
         public Vector3 Movement = Vector3.zero;
@@ -34,6 +36,11 @@ namespace Triplano.Inputs
 
         public void Enable() => inputStrategy.EnableInput();
         public void Disable() => inputStrategy.DisableInput();
+
+        public void Move(Vector2 delta)
+        {
+            OnMove?.Invoke(delta);
+        }
     }
 
 }

@@ -14,17 +14,20 @@ namespace Triplano.Inputs
             this.inputMovement = inputMovement;
             playerInputActions = new PlayerInputActions();
 
+            playerInputActions.Player.Movement.started += context => Move(context);
             playerInputActions.Player.Movement.performed += context => Move(context);
             playerInputActions.Player.Movement.canceled += context => Move(context);
         }
 
         private void Move(InputAction.CallbackContext context)
         {
-            inputMovement.Movement = context.ReadValue<Vector2>();
+            Vector2 movement = context.ReadValue<Vector2>();
+            inputMovement.Move(movement);
         }
 
         public override void UnsubscribeToBindings(InputMovement inputMovement)
         {
+            playerInputActions.Player.Movement.started -= context => Move(context);
             playerInputActions.Player.Movement.performed -= context => Move(context);
             playerInputActions.Player.Movement.canceled -= context => Move(context);
         }

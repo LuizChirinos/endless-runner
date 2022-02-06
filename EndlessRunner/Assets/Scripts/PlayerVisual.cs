@@ -29,10 +29,10 @@ namespace Triplano
             jumpMovement = GetComponent<JumpMovement>();
             slideMovement = GetComponent<SlideMovement>();
 
-            slideMovement.OnStartSliding += StartSlide;
-            slideMovement.OnStopSliding += StopSlide;
-            jumpMovement.OnStartJumping += StartJumping;
-            jumpMovement.OnStopJumping += StopJumping;
+            //slideMovement.OnStartSliding += StartSlide;
+            //slideMovement.OnStopSliding += StopSlide;
+            //jumpMovement.OnStartJumping += StartJumping;
+            //jumpMovement.OnStopJumping += StopJumping;
             railMovement.OnStartMoving += StartMoving;
             railMovement.OnStopMoving += StopMoving;
             health.OnDeath += Die;

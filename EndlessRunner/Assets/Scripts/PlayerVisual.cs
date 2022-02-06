@@ -10,9 +10,9 @@ namespace Triplano
     public class PlayerVisual : MonoBehaviour
     {
         [SerializeField] private Transform visual;
-        private JumpMovement jumpMovement;
         private RailMovement railMovement;
         private SlideMovement slideMovement;
+        private VerticalMovement verticalMovement;
         private Health health;
         private Animator anim;
 
@@ -26,13 +26,19 @@ namespace Triplano
             anim = visual.GetComponentInChildren<Animator>();
             railMovement = GetComponentInParent<RailMovement>();
             health = GetComponent<Health>();
-            jumpMovement = GetComponent<JumpMovement>();
+            verticalMovement = GetComponent<VerticalMovement>();
             slideMovement = GetComponent<SlideMovement>();
 
-            //slideMovement.OnStartSliding += StartSlide;
-            //slideMovement.OnStopSliding += StopSlide;
-            //jumpMovement.OnStartJumping += StartJumping;
-            //jumpMovement.OnStopJumping += StopJumping;
+            if (verticalMovement)
+            {
+                verticalMovement.OnStartJumping += StartJumping;
+                verticalMovement.OnStopJumping += StopJumping;
+            }
+            if(slideMovement)
+            {
+                slideMovement.OnStartSliding += StartSlide;
+                slideMovement.OnStopSliding += StopSlide;
+            }
             railMovement.OnStartMoving += StartMoving;
             railMovement.OnStopMoving += StopMoving;
             health.OnDeath += Die;
@@ -56,8 +62,16 @@ namespace Triplano
 
         private void OnDestroy()
         {
-            jumpMovement.OnStartJumping -= StartJumping;
-            jumpMovement.OnStopJumping -= StopJumping;
+            if (verticalMovement)
+            {
+                verticalMovement.OnStartJumping -= StartJumping;
+                verticalMovement.OnStopJumping -= StopJumping;
+            }
+            if (slideMovement)
+            {
+                slideMovement.OnStartSliding -= StartSlide;
+                slideMovement.OnStopSliding -= StopSlide;
+            }
             railMovement.OnStartMoving -= StartMoving;
             railMovement.OnStopMoving -= StopMoving;
             health.OnDeath -= Die;

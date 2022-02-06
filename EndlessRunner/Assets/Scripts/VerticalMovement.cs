@@ -72,6 +72,17 @@ namespace Triplano
                     UpdateFloorHeight();
                     transform.localPosition = new Vector3(transform.localPosition.x, floorHeight, transform.localPosition.z);
 
+                    Ray ray = new Ray(transform.position + transform.up, -transform.up);
+                    if (Physics.Raycast(ray, out hit, 10f, floorMask))
+                    {
+                        if(hit.collider)
+                        {
+                            transform.localPosition = new Vector3(transform.localPosition.x,
+                                                                  (hit.point).y,
+                                                                  transform.localPosition.z);
+                        }
+                    }
+
                     OnStopJumping?.Invoke();
                 }
             }

@@ -22,13 +22,13 @@ namespace Triplano
             inputMovement = GetComponent<InputMovement>();
 
             health.OnDeath += railMovement.LockMovement;
-            health.OnDeath += laneMovement.LockMovement;
+            health.OnDeath += laneMovement.StopMove;
             health.OnDeath += inputMovement.Disable;
         }
         private void OnDestroy()
         {
             health.OnDeath -= railMovement.LockMovement;
-            health.OnDeath -= laneMovement.LockMovement;
+            health.OnDeath -= laneMovement.StopMove;
             health.OnDeath -= inputMovement.Disable;
         }
     }

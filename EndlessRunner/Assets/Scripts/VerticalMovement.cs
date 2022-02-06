@@ -11,17 +11,21 @@ namespace Triplano
         public JumpEventHandler OnStartJumping;
         public JumpEventHandler OnStopJumping;
 
-        [SerializeField] private float jumpForce;
+        [Header("Collider casting")]
         [SerializeField] private LayerMask floorMask;
+        [SerializeField] private Vector3 offset;
         [SerializeField] private float toleranceToFloor = 0.3f;
         [SerializeField] private float rayDistance = 10f;
-        [SerializeField] private float gravityMofidier = -10f;
-        [SerializeField] private float maxJumpSpeed = 10f;
-        [SerializeField] private float maxFallingSpeed = 10f;
-        [SerializeField] private float playerHeight = 2.5f;
-        [SerializeField] private Vector3 offset;
         [SerializeField] private float radius = 1f;
+        [Header("Jump")]
+        [SerializeField] private float jumpForce;
+        [SerializeField] private float maxJumpSpeed = 10f;
+        [SerializeField] private float playerHeight = 2.5f;
         [SerializeField] private AnimationCurve jumpTimeCurve;
+        [Header("Fall")]
+        [SerializeField] private float maxFallingSpeed = 10f;
+        [SerializeField] private float gravityMofidier = -10f;
+        [SerializeField] private float fallInputModifier = 2f;
 
         private bool canJump = true;
         private float floorHeight;
@@ -29,6 +33,7 @@ namespace Triplano
         private bool isJumping;
         private bool nearFloor;
         private float verticalSpeed;
+        private RaycastHit hit;
         private InputMovement inputMovement;
 
         public float Gravity { get => gravityMofidier * jumpTimeCurve.Evaluate(jumpTime); }
@@ -62,29 +67,7 @@ namespace Triplano
 
             if (collider.Length > 0)
             {
-                nearFloor = true;
-                verticalSpeed -= Gravity;
-                if (isJumping && jumpTime > 0.3f)
-                {
-                    jumpTime = 0f;
-                    isJumping = false;
-                    verticalSpeed -= verticalSpeed;
-                    UpdateFloorHeight();
-                    transform.localPosition = new Vector3(transform.localPosition.x, floorHeight, transform.localPosition.z);
-
-                    Ray ray = new Ray(transform.position + transform.up, -transform.up);
-                    if (Physics.Raycast(ray, out hit, 10f, floorMask))
-                    {
-                        if(hit.collider)
-                        {
-                            transform.localPosition = new Vector3(transform.localPosition.x,
-                                                                  (hit.point).y,
-                                                                  transform.localPosition.z);
-                        }
-                    }
-
-                    OnStopJumping?.Invoke();
-                }
+                OnGround();
             }
             else
                 OnAir();
@@ -99,11 +82,39 @@ namespace Triplano
             transform.localPosition += new Vector3(0f, verticalSpeed, 0f) * Time.deltaTime;
         }
 
+        private void OnGround()
+        {
+            nearFloor = true;
+            verticalSpeed -= Gravity;
+            if (isJumping && jumpTime > 0.3f)
+            {
+                jumpTime = 0f;
+                isJumping = false;
+                verticalSpeed -= verticalSpeed;
+                UpdateFloorHeight();
+                transform.localPosition = new Vector3(transform.localPosition.x, floorHeight, transform.localPosition.z);
+
+                Ray ray = new Ray(transform.position + transform.up, -transform.up);
+                if (Physics.Raycast(ray, out hit, 10f, floorMask))
+                {
+                    if (hit.collider)
+                    {
+                        transform.position = new Vector3(transform.position.x,
+                                                              (hit.point).y,
+                                                              transform.position.z);
+                    }
+                }
+
+                OnStopJumping?.Invoke();
+            }
+        }
+
         private void OnAir()
         {
             Debug.Log("On air");
             nearFloor = false;
         }
+
         private void UpdateFloorHeight()
         {
             floorHeight = transform.localPosition.y;
@@ -119,6 +130,15 @@ namespace Triplano
             Jump();
         }
 
+        private void OnFall(Vector2 delta)
+        {
+            if (!isJumping)
+                return;
+            if (delta.y >= 0f)
+                return;
+            Fall();
+        }
+
         public void AddVerticelSpeed(float speed)
         {
             verticalSpeed += speed;
@@ -132,6 +152,11 @@ namespace Triplano
             AddVerticelSpeed(jumpForce);
 
             OnStartJumping?.Invoke();
+        }
+        public void Fall()
+        {
+            float verticalAbsolute = Mathf.Abs(verticalSpeed);
+            verticalSpeed = -verticalSpeed;
         }
 
         private void OnDrawGizmos()

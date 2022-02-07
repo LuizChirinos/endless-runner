@@ -28,6 +28,8 @@ namespace Triplano
 
             verticalMovement.OnStartJumping += slideMovement.LockMovement;
             verticalMovement.OnStopJumping += slideMovement.UnlockMovement;
+            slideMovement.OnStartSliding += verticalMovement.LockMovement;
+            slideMovement.OnStopSliding += verticalMovement.UnlockMovement;
             health.OnDeath += railMovement.LockMovement;
             health.OnDeath += laneMovement.StopMove;
             health.OnDeath += inputMovement.Disable;
@@ -36,6 +38,8 @@ namespace Triplano
         {
             verticalMovement.OnStartJumping -= slideMovement.LockMovement;
             verticalMovement.OnStopJumping -= slideMovement.UnlockMovement;
+            slideMovement.OnStartSliding -= verticalMovement.LockMovement;
+            slideMovement.OnStopSliding -= verticalMovement.UnlockMovement;
             health.OnDeath -= railMovement.LockMovement;
             health.OnDeath -= laneMovement.StopMove;
             health.OnDeath -= inputMovement.Disable;

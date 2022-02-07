@@ -1,10 +1,11 @@
 using System;
 using Triplano.Inputs;
+using Triplano.Movement;
 using UnityEngine;
 
 namespace Triplano
 {
-    public class VerticalMovement : MonoBehaviour
+    public class VerticalMovement : MonoBehaviour, IMove
     {
         public delegate void JumpEventHandler();
 
@@ -30,6 +31,7 @@ namespace Triplano
         [SerializeField] private float raycastSlopeAngle = 45f;
         [SerializeField] private float slopeDetectionDistance = 2f;
 
+        private int movementLock;
         private bool canJump = true;
         private float floorHeight;
         private float jumpTime;
@@ -39,12 +41,34 @@ namespace Triplano
         private RaycastHit hit;
         private InputMovement inputMovement;
 
-        public float Gravity { get => gravityMofidier * jumpTimeCurve.Evaluate(jumpTime); }
+        public float Gravity
+        {
+            get
+            {
+                float gravityScale = 100f;
+                if (isJumping)
+                    gravityScale = gravityMofidier * jumpTimeCurve.Evaluate(jumpTime);
+                else
+                    gravityScale = gravityMofidier;
+                return gravityScale;
+            }
+        }
+
         public bool NearFloor { get => nearFloor; }
+
         public Vector3 Origin { get => transform.position + offset; }
+
         public Vector3 SlopeTargetOrigin { get => transform.position + transform.up; }
+
         public Vector3 SlopeTargetDirection { get => transform.forward - transform.up; }
+
         public bool CanJump { get => canJump; set => canJump = value; }
+
+        public int MovementLock => movementLock;
+
+        public bool CanMove => movementLock <= 0;
+
+        public Vector3 CurrentSpeed { get => new Vector3(0f, verticalSpeed, 0f); set => verticalSpeed = value.y; }
 
         private void OnEnable()
         {
@@ -92,7 +116,10 @@ namespace Triplano
         private void OnGround()
         {
             nearFloor = true;
-            verticalSpeed -= Gravity;
+
+            if (!isJumping)
+                verticalSpeed = 0f;
+            //verticalSpeed -= Gravity;
             if (isJumping && jumpTime > 0.3f)
                 ReturningFromJump();
 
@@ -151,7 +178,7 @@ namespace Triplano
 
         private void OnJump(Vector2 delta)
         {
-            if (isJumping && canJump)
+            if (isJumping || !CanMove)
                 return;
             if (delta.y <= 0f)
                 return;
@@ -161,16 +188,16 @@ namespace Triplano
 
         private void OnFall(Vector2 delta)
         {
-            if (!isJumping)
+            if (!isJumping || !CanMove)
                 return;
             if (delta.y >= 0f)
                 return;
             Fall();
         }
 
-        public void AddVerticelSpeed(float speed)
+        public void SetVerticalSpeed(float speed)
         {
-            verticalSpeed += speed;
+            verticalSpeed = speed;
         }
 
         [ContextMenu("Jump")]
@@ -178,7 +205,7 @@ namespace Triplano
         {
             jumpTime = 0f;
             isJumping = true;
-            AddVerticelSpeed(jumpForce);
+            SetVerticalSpeed(jumpForce);
 
             OnStartJumping?.Invoke();
         }
@@ -194,6 +221,21 @@ namespace Triplano
         {
             Gizmos.DrawWireSphere(transform.position + offset, radius);
             Debug.DrawLine(SlopeTargetOrigin, SlopeTargetOrigin + SlopeTargetDirection, Color.red);
+        }
+
+        public void Move(Vector3 direction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LockMovement()
+        {
+            movementLock++;
+        }
+
+        public void UnlockMovement()
+        {
+            movementLock--;
         }
     }
 }

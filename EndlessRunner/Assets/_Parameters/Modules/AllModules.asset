@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88640bb452d92d547a3391dad1823612, type: 3}
-  m_Name: RandomModule
+  m_Name: AllModules
   m_EditorClassIdentifier: 
   modules:
   - {fileID: 7834287212765916059, guid: b4db7a89d54b0394eba77db31b49df29, type: 3}
@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 7834287212765916059, guid: 2b6d83c51a8990044a1e8a985c673f6a, type: 3}
   - {fileID: 7834287212765916059, guid: 4752254c4ccdb33419b5c9ddccf6faa9, type: 3}
   - {fileID: 7834287212765916059, guid: 0b83d67300be9d942abfcbf0fecd40ca, type: 3}
+  - {fileID: 7834287212765916059, guid: 2c541860caefe8f4b949de29cf618278, type: 3}
+  - {fileID: 7834287212765916059, guid: f6ccc1fb29d763843949964121199f16, type: 3}

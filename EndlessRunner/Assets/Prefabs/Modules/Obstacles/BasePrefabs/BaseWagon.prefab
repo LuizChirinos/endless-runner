@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laneMovementData: {fileID: 11400000, guid: 71d0119af2b70724391b712b2ad50e62, type: 2}
   laneIndex: 0
+  incrementAmount: 1
 --- !u!1 &8614505638753216602
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +230,10 @@ PrefabInstance:
     - target: {fileID: 1361732094628288, guid: 0d08665f8c40a410097bc1b619f6db45, type: 3}
       propertyPath: m_Name
       value: locomotive-wagon-western
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415625273264572, guid: 0d08665f8c40a410097bc1b619f6db45, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.76323
       objectReference: {fileID: 0}
     - target: {fileID: 4562720201755676, guid: 0d08665f8c40a410097bc1b619f6db45, type: 3}
       propertyPath: m_RootOrder

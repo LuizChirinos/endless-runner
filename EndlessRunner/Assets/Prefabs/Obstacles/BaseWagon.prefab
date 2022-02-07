@@ -1,18 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &2781914963999183361
-BoxCollider:
+--- !u!136 &2005450168615169309
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853055213962415579}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.36, y: 2.76, z: 5.52}
-  m_Center: {x: 0, y: 1.48, z: 0}
+  m_Radius: 1.33
+  m_Height: 5.66
+  m_Direction: 2
+  m_Center: {x: 0, y: 1.159848, z: 0}
 --- !u!114 &3677861039916312177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,6 +27,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagData: {fileID: 11400000, guid: e0ad42986303fe9458070551e9b95272, type: 2}
+--- !u!114 &4881168920995453325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853055213962415579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16cf36ad1ae3ae4dbfc78c23e33f115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnCollidedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  targetTagData: {fileID: 11400000, guid: 72adae38c54721a4c9b71a9e5b882d2e, type: 2}
+  damageAmount: 1
+  disappearsOnCollision: 0
+  instaKill: 1
 --- !u!1 &3432051001665464887
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,12 +72,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3432051001665464887}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 2.46, z: 0.0191}
-  m_LocalScale: {x: 1.8602033, y: 0.43218297, z: 5.4146113}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 2.62, z: -0.40269852}
+  m_LocalScale: {x: 1.8602033, y: 0.43218297, z: 6.2582474}
   m_Children: []
-  m_Father: {fileID: 1847527391857479687}
-  m_RootOrder: 7
+  m_Father: {fileID: 2631961138960647993}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &3091934435326446596
 MeshFilter:
@@ -180,6 +200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1847527391857479687}
+  - {fileID: 5759269452284637418}
   m_Father: {fileID: 4804374567559995419}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

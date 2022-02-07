@@ -22,6 +22,7 @@ namespace Triplano.Lanes
         private bool isChangingLanes = false;
         private int movementLock = 0;
         private Vector3 currentSpeed;
+        private bool forceStopMoving;
 
         public bool IsChangingLanes { get => isChangingLanes; }
         public int MovementLock { get => movementLock; }
@@ -46,6 +47,7 @@ namespace Triplano.Lanes
         {
             inputMovement = GetComponent<InputMovement>();
             CurrentSpeed = Vector3.zero;
+            forceStopMoving = false;
 
             inputMovement.OnMove += OnMove;
         }
@@ -91,6 +93,12 @@ namespace Triplano.Lanes
             StartCoroutine(ChangeLaneCoroutine(direction, laneMovementData.DurationOfMovement));
         }
 
+        public void StopMove()
+        {
+            forceStopMoving = true;
+            LockMovement();
+        }
+
         private IEnumerator ChangeLaneCoroutine(Vector3 direction, float duration)
         {
             if (IsMovingOnLaneBoundary(direction))
@@ -114,7 +122,7 @@ namespace Triplano.Lanes
 
             Vector3 targetLane = transform.localPosition + Vector3.right * Mathf.Sign(direction.x) * laneMovementData.Spacing;
 
-            while (elapsedTime / duration < 0.8f)
+            while (elapsedTime / duration < 0.8f && !forceStopMoving)
             {
                 elapsedTime = Time.time - intialTime;
                 targetLane.y = transform.localPosition.y;
@@ -122,11 +130,15 @@ namespace Triplano.Lanes
                 CurrentSpeed = targetLane - transform.localPosition;
                 yield return null;
             }
-            
+
+            isChangingLanes = false;
+
+            if (forceStopMoving)
+                yield break;
+
             targetLane.y = transform.localPosition.y;
             transform.localPosition = targetLane;
 
-            isChangingLanes = false;
         }
 
         private bool IsMovingOnLaneBoundary(Vector3 direction)

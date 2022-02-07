@@ -10,7 +10,6 @@ namespace Triplano
     public class ModulesCreator : MonoBehaviour
     {
         [SerializeField] private List<Module> modules;
-        [SerializeField] private Module modulePrefab;
         [SerializeField] private Transform modulesParent;
         [SerializeField] private GameEvent spawnModuleGameEvent;
         [SerializeField] private GameEvent destroyModuleGameEvent;
@@ -37,6 +36,7 @@ namespace Triplano
             spawnModuleGameEvent.SubscribeToEvent(CreateModule);
             destroyModuleGameEvent.SubscribeToEvent(DestroyModule);
         }
+
         private void OnDestroy()
         {
             spawnModuleGameEvent.UnsubscribeToEvent(CreateModule);
@@ -45,9 +45,11 @@ namespace Triplano
 
         private void CreateModule()
         {
+            Module modulePrefab = LastModule.SpawnModuleFilter.GetModule();
             Module spawnedModule = Instantiate(modulePrefab, LastModulesPosition, Quaternion.identity, modulesParent);
             AddModule(spawnedModule);
         }
+
         private void DestroyModule()
         {
             Module removedModule = RemoveModule(FirstModule);
@@ -60,6 +62,7 @@ namespace Triplano
             modules.Add(module);
             return module;
         }
+
         private Module RemoveModule(Module module)
         {
             modules.Remove(module);

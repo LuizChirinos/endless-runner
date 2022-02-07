@@ -344,6 +344,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 27.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7107288458963946978, guid: 3a2d9591effa55e469e73de41d85bd9a, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 2124245323}
+    - target: {fileID: 7107288458963946978, guid: 3a2d9591effa55e469e73de41d85bd9a, type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 2124245323}
     - target: {fileID: 7989903187108433828, guid: 3a2d9591effa55e469e73de41d85bd9a, type: 3}
       propertyPath: m_TrackedObjectOffset.y
       value: 0

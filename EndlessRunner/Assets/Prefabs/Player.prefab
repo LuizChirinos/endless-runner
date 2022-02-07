@@ -87,9 +87,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.6695089
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.1652455, z: 0}
 --- !u!65 &8112548261331567820
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -248,18 +248,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4450d454f3044024a81740382648a0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 15
   floorMask:
     serializedVersion: 2
     m_Bits: 64
+  offset: {x: 0, y: -0.07, z: 0}
   toleranceToFloor: 3
   rayDistance: 10
-  gravityMofidier: -2
-  maxJumpSpeed: 50
-  maxFallingSpeed: 10
-  playerHeight: 2.5
-  offset: {x: 0, y: -0.07, z: 0}
   radius: 0.47
+  jumpForce: 15
+  maxJumpSpeed: 50
+  playerHeight: 2.5
   jumpTimeCurve:
     serializedVersion: 2
     m_Curve:
@@ -284,6 +282,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  maxFallingSpeed: 10
+  gravityMofidier: -2
+  fallInputModifier: 2
 --- !u!114 &1483393270404502276
 MonoBehaviour:
   m_ObjectHideFlags: 0

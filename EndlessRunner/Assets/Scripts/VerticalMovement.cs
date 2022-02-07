@@ -26,6 +26,9 @@ namespace Triplano
         [SerializeField] private float maxFallingSpeed = 10f;
         [SerializeField] private float gravityMofidier = -10f;
         [SerializeField] private float fallInputModifier = 2f;
+        [Header("Slope")]
+        [SerializeField] private float raycastSlopeAngle = 45f;
+        [SerializeField] private float slopeDetectionDistance = 2f;
 
         private bool canJump = true;
         private float floorHeight;
@@ -39,6 +42,8 @@ namespace Triplano
         public float Gravity { get => gravityMofidier * jumpTimeCurve.Evaluate(jumpTime); }
         public bool NearFloor { get => nearFloor; }
         public Vector3 Origin { get => transform.position + offset; }
+        public Vector3 SlopeTargetOrigin { get => transform.position + transform.up; }
+        public Vector3 SlopeTargetDirection { get => transform.forward - transform.up; }
         public bool CanJump { get => canJump; set => canJump = value; }
 
         private void OnEnable()
@@ -49,11 +54,13 @@ namespace Triplano
             UpdateFloorHeight();
 
             inputMovement.OnMove += OnJump;
+            inputMovement.OnMove += OnFall;
         }
 
         private void OnDisable()
         {
             inputMovement.OnMove -= OnJump;
+            inputMovement.OnMove = OnFall;
         }
 
         private void FixedUpdate()
@@ -87,26 +94,48 @@ namespace Triplano
             nearFloor = true;
             verticalSpeed -= Gravity;
             if (isJumping && jumpTime > 0.3f)
+                ReturningFromJump();
+
+            DetectecSlope();
+        }
+
+        private void DetectecSlope()
+        {
+            Ray ray = new Ray(SlopeTargetOrigin, SlopeTargetDirection);
+            if (Physics.Raycast(ray, out hit, 10f, floorMask))
             {
-                jumpTime = 0f;
-                isJumping = false;
-                verticalSpeed -= verticalSpeed;
-                UpdateFloorHeight();
-                transform.localPosition = new Vector3(transform.localPosition.x, floorHeight, transform.localPosition.z);
-
-                Ray ray = new Ray(transform.position + transform.up, -transform.up);
-                if (Physics.Raycast(ray, out hit, 10f, floorMask))
+                if (hit.collider && !isJumping && hit.distance <= slopeDetectionDistance)
                 {
-                    if (hit.collider)
-                    {
-                        transform.position = new Vector3(transform.position.x,
-                                                              (hit.point).y,
-                                                              transform.position.z);
-                    }
-                }
+                    transform.position = new Vector3(transform.position.x,
+                                                     hit.point.y,
+                                                     transform.position.z);
 
-                OnStopJumping?.Invoke();
+                    Debug.Log(hit.collider.name);
+                    UpdateFloorHeight();
+                }
             }
+        }
+
+        private void ReturningFromJump()
+        {
+            jumpTime = 0f;
+            isJumping = false;
+            verticalSpeed -= verticalSpeed;
+            UpdateFloorHeight();
+            transform.localPosition = new Vector3(transform.localPosition.x, floorHeight, transform.localPosition.z);
+
+            Ray ray = new Ray(transform.position + transform.up, -transform.up);
+            if (Physics.Raycast(ray, out hit, 10f, floorMask))
+            {
+                if (hit.collider)
+                {
+                    transform.position = new Vector3(transform.position.x,
+                                                          (hit.point).y,
+                                                          transform.position.z);
+                }
+            }
+
+            OnStopJumping?.Invoke();
         }
 
         private void OnAir()
@@ -153,16 +182,18 @@ namespace Triplano
 
             OnStartJumping?.Invoke();
         }
+
+        [ContextMenu("Fall")]
         public void Fall()
         {
             float verticalAbsolute = Mathf.Abs(verticalSpeed);
-            verticalSpeed = -verticalSpeed;
+            verticalSpeed = -verticalAbsolute * fallInputModifier;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position + offset, radius);
-            //Debug.DrawLine(transform.position + offset, transform.position + offset - transform.up * toleranceToFloor, Color.red);
+            Debug.DrawLine(SlopeTargetOrigin, SlopeTargetOrigin + SlopeTargetDirection, Color.red);
         }
     }
 }

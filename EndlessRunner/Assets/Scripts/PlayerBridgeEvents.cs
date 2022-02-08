@@ -10,6 +10,9 @@ namespace Triplano
 {
     public class PlayerBridgeEvents : MonoBehaviour
     {
+        [SerializeField] private GameEvent winEvent;
+        [SerializeField] private GameEvent loseEvent;
+
         private Health health;
         private RailMovement railMovement;
         private VerticalMovement verticalMovement;
@@ -30,6 +33,7 @@ namespace Triplano
             verticalMovement.OnStopJumping += slideMovement.UnlockMovement;
             slideMovement.OnStartSliding += verticalMovement.LockMovement;
             slideMovement.OnStopSliding += verticalMovement.UnlockMovement;
+            health.OnDeath += loseEvent.TriggerEvent;
             health.OnDeath += railMovement.LockMovement;
             health.OnDeath += laneMovement.StopMove;
             health.OnDeath += inputMovement.Disable;
@@ -40,6 +44,7 @@ namespace Triplano
             verticalMovement.OnStopJumping -= slideMovement.UnlockMovement;
             slideMovement.OnStartSliding -= verticalMovement.LockMovement;
             slideMovement.OnStopSliding -= verticalMovement.UnlockMovement;
+            health.OnDeath -= loseEvent.TriggerEvent;
             health.OnDeath -= railMovement.LockMovement;
             health.OnDeath -= laneMovement.StopMove;
             health.OnDeath -= inputMovement.Disable;

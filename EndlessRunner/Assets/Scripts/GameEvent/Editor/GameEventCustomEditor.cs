@@ -19,13 +19,17 @@ namespace Triplano
 
             debug = EditorGUILayout.Toggle(nameof(debug), debug);
 
-            if(debug)
+            if (debug)
             {
                 if (gameEvent.OnTriggeredEvent != null)
                 {
                     foreach (System.Delegate item in gameEvent.OnTriggeredEvent.GetInvocationList())
                     {
-                        EditorGUILayout.LabelField(item.ToString());
+                        EditorGUILayout.BeginVertical("box");
+                        EditorGUILayout.LabelField($"Origin:{item.Target}");
+                        EditorGUILayout.LabelField($"Type:{item.GetType().Name}");
+                        EditorGUILayout.LabelField($"Method:{item.Method.Name}");
+                        EditorGUILayout.EndVertical();
                     }
                 }
             }

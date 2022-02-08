@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d0bb0a9bd48204184a530088e8ad94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winEvent: {fileID: 11400000, guid: b1c115c0f7613394da5637ae7e540c38, type: 2}
+  loseEvent: {fileID: 11400000, guid: aceb22647febdda429c9a3132358b89f, type: 2}
 --- !u!114 &3768201077203637234
 MonoBehaviour:
   m_ObjectHideFlags: 0

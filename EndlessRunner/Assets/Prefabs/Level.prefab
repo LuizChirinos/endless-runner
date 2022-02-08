@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ce1acd76cf6f4eb50d8c1c67ede4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelFlow: {fileID: 11400000, guid: 3a4be3168299d314ab59535e7cba58c6, type: 2}
+  loseEvent: {fileID: 11400000, guid: aceb22647febdda429c9a3132358b89f, type: 2}
   currencyGame: {fileID: 11400000, guid: 234a7de53aaf98d43b43723002a7f82f, type: 2}
   currencyLevel: {fileID: 11400000, guid: 2f89debf5e708794cbe1aee75c2ac191, type: 2}
 --- !u!114 &4360843149498510670
@@ -94,7 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modules: []
-  modulePrefab: {fileID: 7834287212765916059, guid: b4db7a89d54b0394eba77db31b49df29, type: 3}
   modulesParent: {fileID: 5704862964373573148}
   spawnModuleGameEvent: {fileID: 11400000, guid: 6901d98469689c64d8d9bc6344f28398, type: 2}
   destroyModuleGameEvent: {fileID: 11400000, guid: 8924d372867d4ee40b8b75878dc34eec, type: 2}

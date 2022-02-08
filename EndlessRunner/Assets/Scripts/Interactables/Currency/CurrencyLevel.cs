@@ -7,25 +7,24 @@ using UnityEngine;
 
 public class CurrencyLevel : MonoBehaviour
 {
-    [SerializeField] private LevelFlow levelFlow;
+    [SerializeField] private GameEvent loseEvent;
     [SerializeField] private ScriptableNumber currencyGame;
     [SerializeField] private ScriptableNumber currencyLevel;
 
     private void Start()
     {
-        levelFlow.OnWon += ReceiveCurrency;
+        loseEvent.SubscribeToEvent(ReceiveCurrency);
     }
 
     private void OnDestroy()
     {
-        levelFlow.OnWon -= ReceiveCurrency;
+        loseEvent.UnsubscribeToEvent(ReceiveCurrency);
         currencyLevel.Reset();
     }
 
     private void ReceiveCurrency()
     {
         currencyGame.Add(currencyLevel.SavedValue);
-        currencyLevel.Reset();
     }
 
 }

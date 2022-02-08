@@ -1,19 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using Triplano.Levels;
 using Triplano.Screens;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Triplano
 {
     public class Leaderboard : ScreenObject
     {
+        [SerializeField] private Button buttonRestart;
         [SerializeField] private GameEvent loseEvent;
-        [SerializeField] private float delayToAppear = 2f;
+        [SerializeField] private LevelFlow levelFlow;
+        [SerializeField] private float delayToAppearScreen = 2f;
 
         protected override void Start()
         {
             base.Start();
             loseEvent.SubscribeToEvent(ShowScreen);
+            buttonRestart.onClick.AddListener(levelFlow.ResetLevel);
         }
         protected override void OnDestroy()
         {
@@ -23,7 +26,7 @@ namespace Triplano
 
         public override void ShowScreen()
         {
-            Invoke(nameof(Show), delayToAppear);
+            Invoke(nameof(Show), delayToAppearScreen);
             
         }
     }

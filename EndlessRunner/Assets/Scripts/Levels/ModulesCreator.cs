@@ -16,6 +16,7 @@ namespace Triplano
         [SerializeField] private CameraOriginData cameraOriginData;
         [SerializeField] private int maxNumberOfModules = 2;
 
+        private Camera mainCamera;
         private RailMovement railMovement;
 
         public int NumberOfActiveModules { get => modules.Count; }
@@ -25,6 +26,7 @@ namespace Triplano
 
         private void Start()
         {
+            mainCamera = Camera.main;
             railMovement = GetComponentInChildren<RailMovement>();
             modules = GetComponentsInChildren<Module>().ToList();
 
@@ -48,6 +50,12 @@ namespace Triplano
             Module modulePrefab = LastModule.SpawnModuleFilter.GetModule();
             Module spawnedModule = Instantiate(modulePrefab, LastModulesPosition, Quaternion.identity, modulesParent);
             AddModule(spawnedModule);
+
+            foreach (Module item in modules)
+            {
+                item.transform.position -= Vector3.forward * mainCamera.transform.position.z;
+            }
+            railMovement.transform.position -= Vector3.forward * mainCamera.transform.position.z;
         }
 
         private void DestroyModule()

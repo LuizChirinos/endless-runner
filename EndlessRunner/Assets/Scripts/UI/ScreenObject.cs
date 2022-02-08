@@ -8,16 +8,29 @@ namespace Triplano.Screens
 
         protected virtual void Start()
         {
-            screenData.OnRequestShow += Show;
-            screenData.OnRequestHide += Hide;
+            screenData.OnRequestShow += ShowScreen;
+            screenData.OnRequestHide += HideScreen;
         }
         protected virtual void OnDestroy()
         {
-            screenData.OnRequestShow -= Show;
-            screenData.OnRequestHide -= Hide;
+            screenData.OnRequestShow -= ShowScreen;
+            screenData.OnRequestHide -= HideScreen;
         }
 
-        public virtual void Show()
+        public virtual void ShowScreen()
+        {
+            Show();
+        }
+
+        protected void Hide()
+        {
+            foreach (Transform item in transform)
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
+
+        protected void Show()
         {
             foreach (Transform item in transform)
             {
@@ -25,12 +38,9 @@ namespace Triplano.Screens
             }
         }
 
-        public virtual void Hide()
+        public virtual void HideScreen()
         {
-            foreach (Transform item in transform)
-            {
-                item.gameObject.SetActive(false);
-            }
+            Hide();
         }
     }
 }

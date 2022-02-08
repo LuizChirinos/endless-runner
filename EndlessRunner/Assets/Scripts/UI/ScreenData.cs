@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Triplano.Screens
 {
-    [CreateAssetMenu(fileName = nameof(ScreenData), menuName = "StrangeLoops/Screens/ScreenData")]
+    [CreateAssetMenu(fileName = nameof(ScreenData), menuName = "Screens/ScreenData")]
     public class ScreenData : ScriptableObject
     {
         #region Delegates

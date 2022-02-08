@@ -15,8 +15,9 @@ namespace Triplano
         [SerializeField] private GameEvent loseEvent;
         [SerializeField] private LevelFlow levelFlow;
         [SerializeField] private float delayToAppearScreen = 2f;
-
+        [SerializeField] private float delayToHighlight = 3f;
         private RecordUI[] recordUIs;
+        private int newScore;
 
         protected override void Start()
         {
@@ -38,11 +39,12 @@ namespace Triplano
         {
             if (scoreNumber.SavedValue > 0)
             {
+                newScore = scoreNumber.SavedValue;
                 leaderboardData.TryAddNewScore(scoreNumber.SavedValue);
                 scoreNumber.Reset();
             }
 
-            for (int i = 0; i < leaderboardData.UserScores.Count; i++)
+            for (int i = 0; i < recordUIs.Length; i++)
             {
                 leaderboardData.UpdateList();
                 recordUIs[i].SetData(leaderboardData.UserScores[i].Score, leaderboardData.UserScores[i].Position);
@@ -59,6 +61,24 @@ namespace Triplano
             }
 
             Invoke(nameof(Show), delayToAppearScreen);
+            Invoke(nameof(HighlightNewScore), delayToHighlight);
+        }
+
+        private void HighlightNewScore()
+        {
+            RecordUI recordUI = GetRecordUIByScore(newScore);
+            if (recordUI)
+                recordUI.Highlight();
+        }
+
+        private RecordUI GetRecordUIByScore(int score)
+        {
+            for (int i = 0; i < recordUIs.Length; i++)
+            {
+                if (recordUIs[i].Score == score)
+                    return recordUIs[i];
+            }
+            return null;
         }
     }
 }
